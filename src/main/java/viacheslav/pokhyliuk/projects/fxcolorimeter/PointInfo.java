@@ -7,16 +7,16 @@ class PointInfo {
     private final long color;
     private final int x;
     private final int y;
-    private final String[][] pixelsColors;
+    private final String[][] pixels;
 
-    PointInfo(int red, int green, int blue, long color, int x, int y, String[][] pixelsColors) {
+    PointInfo(int red, int green, int blue, long color, int x, int y, String[][] pixels) {
         this.red = red;
         this.green = green;
         this.blue = blue;
         this.color = color;
         this.x = x;
         this.y = y;
-        this.pixelsColors = pixelsColors;
+        this.pixels = pixels;
     }
 
     int getRed() {
@@ -43,7 +43,7 @@ class PointInfo {
         return y;
     }
 
-    String[][] getPixelsColors() {
-        return pixelsColors;
+    String[][] getPixels() {
+        return pixels;
     }
 }

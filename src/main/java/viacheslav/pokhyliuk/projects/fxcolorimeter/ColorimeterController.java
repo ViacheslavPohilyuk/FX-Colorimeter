@@ -11,17 +11,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import viacheslav.pokhyliuk.projects.fxcolorimeter.bean.GridProperties;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static javafx.scene.input.KeyCode.F6;
+
 class ColorimeterController implements Initializable {
-
-    @FXML
-    private BorderPane mainPane;
-
-    @FXML
-    private GridPane colorPane;
 
     @FXML
     private Label redLabel;
@@ -39,10 +36,18 @@ class ColorimeterController implements Initializable {
     private Label coordsLabel;
 
     @FXML
-    private Pane currentPixelPane;
+    private GridPane colorPane;
 
     @FXML
     private Slider scopeSlider;
+
+    @FXML
+    private Pane currentPixelPane;
+
+    @FXML
+    private BorderPane mainPane;
+
+    private PointInfo currentPointInfo;
 
     private ColorsAnalyzer colorsAnalyzer;
 
@@ -56,6 +61,21 @@ class ColorimeterController implements Initializable {
         configSlider();
         assignValues();
         colorsAnalyzer.analyze();
+        saveCurrentScreen();
+    }
+
+    private void saveCurrentScreen() {
+        mainPane.setOnKeyPressed(event -> {
+            if (event.getCode() == F6) {
+                try {
+                    colorsAnalyzer.saveGridSnapshot(
+                            currentPointInfo.getX(),
+                            currentPointInfo.getY());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void fillGrid() {
@@ -69,8 +89,9 @@ class ColorimeterController implements Initializable {
     private void assignValues() {
         colorsAnalyzer.getInfo().addListener((obs, oldValue, newValue) ->
                 Platform.runLater(() -> {
-                    assignPointInfo(newValue);
-                    modifyCells(newValue.getPixelsColors());
+                    this.currentPointInfo = newValue;
+                    assignLabels(newValue);
+                    modifyCells(newValue.getPixels());
                 })
         );
     }
@@ -91,7 +112,7 @@ class ColorimeterController implements Initializable {
         fillGrid();
     }
 
-    private void assignPointInfo(PointInfo info) {
+    private void assignLabels(PointInfo info) {
         redLabel.setText(String.valueOf(info.getRed()));
         greenLabel.setText(String.valueOf(info.getGreen()));
         blueLabel.setText(String.valueOf(info.getBlue()));
@@ -112,7 +133,10 @@ class ColorimeterController implements Initializable {
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
                 Pane cell = (Pane) colorPane.getChildren().get(cellCounter++);
-                String cellStyle = String.format("-fx-background-color: %s;", colors[col][row]);
+                String cellStyle = String.format(
+                        "-fx-background-color: %s;",
+                        colors[col][row]
+                );
                 if (cellCounter == ((size * size) / 2) + 1) {
                     cellStyle += "-fx-border-color: black;-fx-border-width: 1;";
                     currentPixelPane.setStyle(cellStyle);

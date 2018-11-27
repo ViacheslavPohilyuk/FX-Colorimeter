@@ -1,5 +1,10 @@
-*.iml
+target
 .idea
+*.iml
 *.exe
 *.jar
-target
+*.log
+*.png
+*.bmp
+*jpg
+*jpeg

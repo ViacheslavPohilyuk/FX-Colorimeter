@@ -7,12 +7,8 @@ import viacheslav.pokhyliuk.projects.fxcolorimeter.bean.ExecutorServices;
 import viacheslav.pokhyliuk.projects.fxcolorimeter.bean.GridProperties;
 import viacheslav.pokhyliuk.projects.fxcolorimeter.bean.ScreenBounds;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -90,22 +86,5 @@ public class ScreenshotColorsAnalyzer implements ColorsAnalyzer {
         final int green = (color & 0x0000ff00) >> 8;
         final int blue = color & 0x000000ff;
         return String.format("#%02x%02x%02x", red, green, blue);
-    }
-
-    private void saveCurrentImage() {
-        try {
-            int size = GridProperties.getCurrentScope();
-            BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-            for (int y = 0; y < size; y++) {
-                for (int x = 0; x < size; x++) {
-                    int rgb = this.screenshot.get().getRGB(x, y);
-                    image.setRGB(x, y, rgb);
-                }
-            }
-            File outputFile = new File("./images/" + LocalDateTime.now().toString() + ".bmp");
-            ImageIO.write(image, "bmp", outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

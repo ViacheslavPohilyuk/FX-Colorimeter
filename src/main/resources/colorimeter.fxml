@@ -4,33 +4,71 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="241.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" prefHeight="241.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <GridPane prefHeight="253.0" prefWidth="194.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="252.0" minHeight="10.0" prefHeight="203.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <GridPane fx:id="colorPane"
+                          maxHeight="-Infinity"
+                          maxWidth="-Infinity"
+                          minHeight="-Infinity"
+                          minWidth="-Infinity"
+                          prefHeight="180.0"
+                          prefWidth="180.0"
+                >
+                </GridPane>
+                <HBox alignment="TOP_RIGHT"
+                      nodeOrientation="LEFT_TO_RIGHT"
+                      prefHeight="37.0"
+                      prefWidth="166.0"
+                      GridPane.rowIndex="1"
+                >
+                    <children>
+                        <Label text="Scope">
+                            <padding>
+                                <Insets right="12.0"/>
+                            </padding>
+                            <font>
+                                <Font name="System Font" size="15.0"/>
+                            </font>
+                        </Label>
+                        <Slider fx:id="scopeSlider" prefHeight="19.0" prefWidth="130.0">
+                            <padding>
+                                <Insets right="8.0" top="3.0"/>
+                            </padding>
+                        </Slider>
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </center>
     <left>
         <GridPane prefHeight="275.0" prefWidth="164.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="107.8374252319336" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="133.1625747680664" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="107.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="133.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
                 <GridPane prefHeight="136.0" prefWidth="164.0" GridPane.rowIndex="1">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.52391815185547" minWidth="10.0"
-                                           prefWidth="22.837425231933594"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.46881103515625" minWidth="10.0"
-                                           prefWidth="111.46881103515625"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="72.70733642578125" minWidth="10.0"
-                                           prefWidth="30.53118896484375"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.5" minWidth="10.0" prefWidth="23.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="111.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="72.0" minWidth="10.0" prefWidth="30.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="45.262786865234375" minHeight="10.0" prefHeight="19.91870880126953"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="92.77505493164062" minHeight="10.0" prefHeight="92.08129119873047"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="27.52392578125" minHeight="7.2167205810546875"
-                                        prefHeight="21.306243896484375" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="27.5" minHeight="7.2" prefHeight="21.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <Pane fx:id="currentPixelPane" prefHeight="90.0" prefWidth="95.0" GridPane.columnIndex="1"
@@ -43,14 +81,11 @@
                 </GridPane>
                 <GridPane prefHeight="124.0" prefWidth="164.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.21672058105469" minWidth="10.0"
-                                           prefWidth="63.78327941894531"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0533332824707" minWidth="10.0"
-                                           prefWidth="105.21672058105469"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="63.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="105.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="20.612476348876953"
-                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
                         <RowConstraints maxHeight="18.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES"/>
                         <RowConstraints maxHeight="18.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES"/>
                         <RowConstraints maxHeight="18.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES"/>
@@ -130,40 +165,4 @@
             </children>
         </GridPane>
     </left>
-    <center>
-        <GridPane prefHeight="253.0" prefWidth="194.0" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="252.2571258544922" minHeight="10.0" prefHeight="203.22496032714844"
-                                vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="118.2249526977539" minHeight="10.0" prefHeight="37.77503967285156"
-                                vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="166.0"
-                      GridPane.rowIndex="1">
-                    <children>
-                        <Label text="Scope">
-                            <padding>
-                                <Insets right="12.0"/>
-                            </padding>
-                            <font>
-                                <Font name="System Font" size="15.0"/>
-                            </font>
-                        </Label>
-                        <Slider fx:id="scopeSlider" prefHeight="19.0" prefWidth="130.0">
-                            <padding>
-                                <Insets right="8.0" top="3.0"/>
-                            </padding>
-                        </Slider>
-                    </children>
-                </HBox>
-                <GridPane fx:id="colorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0">
-                </GridPane>
-            </children>
-        </GridPane>
-    </center>
 </BorderPane>
