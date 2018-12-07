@@ -14,8 +14,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ScreenshotColorsAnalyzer implements ColorsAnalyzer {
     private final String[][] colorsGrid;
-    private final AtomicReference<BufferedImage> screenshot = new AtomicReference<>();
     private final ReadOnlyObjectWrapper<PointInfo> pointInfoWrapper = new ReadOnlyObjectWrapper<>();
+    private final AtomicReference<BufferedImage> screenshot = new AtomicReference<>();
 
     ScreenshotColorsAnalyzer() {
         int max = GridProperties.getMaxScope();
@@ -36,15 +36,16 @@ public class ScreenshotColorsAnalyzer implements ColorsAnalyzer {
     private void scheduleColorsCalculation() {
         ExecutorServices.getScheduled().scheduleAtFixedRate(
                 () -> pointInfoWrapper.set(computePointInfo()),
-                0, 5, TimeUnit.MILLISECONDS
+                1500, 5, TimeUnit.MILLISECONDS
         );
     }
 
     private void scheduleScreenshots() {
         ExecutorServices.getScheduled().scheduleAtFixedRate(() -> {
             Rectangle screen = ScreenBounds.getInstance();
-            this.screenshot.set(Automation.getInstance().createScreenCapture(screen));
-        }, 0, 250, TimeUnit.MILLISECONDS);
+            BufferedImage image = Automation.getInstance().createScreenCapture(screen);
+            screenshot.set(image);
+        }, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     private PointInfo computePointInfo() {
@@ -78,7 +79,7 @@ public class ScreenshotColorsAnalyzer implements ColorsAnalyzer {
         double height = ScreenBounds.getInstance().getHeight();
         colorsGrid[col][row] = (x >= width || x <= 0 || y >= height || y <= 0)
                 ? String.format("#%02x%02x%02x", 0, 0, 0)
-                : computeColor(this.screenshot.get().getRGB(x, y));
+                : computeColor(screenshot.get().getRGB(x, y));
     }
 
     private String computeColor(int color) {

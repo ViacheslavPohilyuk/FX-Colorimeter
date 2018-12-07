@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import viacheslav.pokhyliuk.projects.fxcolorimeter.bean.GridProperties;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,12 +46,15 @@ class ColorimeterController implements Initializable {
     @FXML
     private BorderPane mainPane;
 
-    private PointInfo currentPointInfo;
+    private int size;
+    private String[][] pixels;
 
     private ColorsAnalyzer colorsAnalyzer;
+    private SnapshotMaker snapshotMaker;
 
-    ColorimeterController(ColorsAnalyzer analyzer) {
+    ColorimeterController(ColorsAnalyzer analyzer, SnapshotMaker snapshotMaker) {
         this.colorsAnalyzer = analyzer;
+        this.snapshotMaker = snapshotMaker;
     }
 
     @Override
@@ -67,13 +69,7 @@ class ColorimeterController implements Initializable {
     private void saveCurrentScreen() {
         mainPane.setOnKeyPressed(event -> {
             if (event.getCode() == F6) {
-                try {
-                    colorsAnalyzer.saveGridSnapshot(
-                            currentPointInfo.getX(),
-                            currentPointInfo.getY());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                snapshotMaker.make(pixels, size);
             }
         });
     }
@@ -89,9 +85,10 @@ class ColorimeterController implements Initializable {
     private void assignValues() {
         colorsAnalyzer.getInfo().addListener((obs, oldValue, newValue) ->
                 Platform.runLater(() -> {
-                    this.currentPointInfo = newValue;
                     assignLabels(newValue);
                     modifyCells(newValue.getPixels());
+                    this.pixels = newValue.getPixels();
+                    this.size = GridProperties.getCurrentScope();
                 })
         );
     }

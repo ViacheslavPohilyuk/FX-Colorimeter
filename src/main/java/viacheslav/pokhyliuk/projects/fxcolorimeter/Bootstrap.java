@@ -18,7 +18,8 @@ public class Bootstrap extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/colorimeter.fxml"));
         loader.setController(new ColorimeterController(
-                new ScreenshotColorsAnalyzer()
+                new ScreenshotColorsAnalyzer(),
+                new SnapshotMakerImpl("png", "./images")
         ));
         Parent root = loader.load();
         primaryStage.setTitle("FX Colorimeter");
